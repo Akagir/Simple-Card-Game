@@ -1,6 +1,7 @@
 using UnityEngine;
 using AkagirSCG;
 using TMPro;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -141,6 +142,9 @@ public class GameManager : MonoBehaviour
 
         if(playedCardData.color == currentActiveColor) return true;
 
+        if(playedCardData.type != CardType.Number 
+                && playedCardData.type == topCardData.type) return true;
+
         if(playedCardData.type == CardType.Number
                 && playedCardData.number == topCardData.number) return true;
 
@@ -172,7 +176,7 @@ public class GameManager : MonoBehaviour
         if (isGameOver) return;
 
         Debug.Log($"--- Player {playerIndex}'s Turn Started ---");
-
+        highlightIndexHand(playerIndex);
         // If it's an AI's turn (index > 0), you would trigger their logic here.
         // Example: if (playerIndex > 0) GetComponent<AIManager>().TakeTurn(playerIndex);
     }
@@ -180,5 +184,13 @@ public class GameManager : MonoBehaviour
     private void HandleTurnEnd(int playerIndex)
     {
         // Useful for resetting any turn-specific visual timers or effects
+    }
+
+    private void highlightIndexHand(int playerIndex)
+    {
+        for(int i=0;i < allPlayerHands.Length ;i++)
+            allPlayerHands[i].deactivateHighlight();
+        
+        allPlayerHands[playerIndex].activateHighlight();
     }
 }

@@ -7,8 +7,14 @@ public class HandManager : MonoBehaviour
     [SerializeField]
     private List<CardData> cardsInHand = new List<CardData>();
     private Transform handTransform;
-    float cardSpacing = 100f;
+    public float horizontalOffset = 0;
+
+    public float verticalOffset = -18;
+    public float cardSpacing = 100f;
     public GameObject cardPrefab;
+
+    // For highlighing hand in turn
+    public GameObject handHighlighter;
 
     private void Awake()
     {
@@ -39,10 +45,13 @@ public class HandManager : MonoBehaviour
         //Debug.Log("Current cardCount: "+cardCount);
 
         foreach (Transform child in handTransform)
-            Destroy(child.gameObject);
+        {
+            if (child.GetComponent<CardDisplay>() != null)
+                Destroy(child.gameObject);
+        }
 
         List<GameObject> cardObjects = new List<GameObject>();
-        float horizontalOffset = 0;
+        
 
         for(int i=0; i < cardCount ; i++)
         {
@@ -61,15 +70,15 @@ public class HandManager : MonoBehaviour
             for(int i=0; i < cardCount ; i++)
             {
                 horizontalOffset = cardSpacing * (i - (cardCount - 1) / 2f);
-                cardObjects[i].transform.localPosition = new Vector3(horizontalOffset, 0f, 0f);
+                cardObjects[i].transform.localPosition = new Vector3(horizontalOffset, verticalOffset, 0f);
             }
         }
         else
         {
             for(int i=0; i < cardCount ; i++)
             {
-                horizontalOffset = (cardSpacing - 20) * (i - (cardCount - 1) / 2f);
-                cardObjects[i].transform.localPosition = new Vector3(horizontalOffset, 0f, 0f);
+                horizontalOffset = (cardSpacing - 16) * (i - (cardCount - 1) / 2f);
+                cardObjects[i].transform.localPosition = new Vector3(horizontalOffset, verticalOffset, 0f);
             }
         }
     }
@@ -77,6 +86,16 @@ public class HandManager : MonoBehaviour
     public int GetCardCount()
     {
         return cardsInHand.Count;
+    }
+
+    public void activateHighlight()
+    {
+        handHighlighter.SetActive(true);
+    }
+
+    public void deactivateHighlight()
+    {
+        handHighlighter.SetActive(false);
     }
 
 }
