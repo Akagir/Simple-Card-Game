@@ -38,6 +38,15 @@ public class DropPileManager : MonoBehaviour
         return dropPile[dropPile.Count - 1];
     }
 
+    public void ChangeTopCardColor(CardColor newColor)
+    {
+        Debug.Log("ChangeTopCardColor called!");
+
+        CardData topCard = GetTopCard();
+        topCard.color = newColor;
+        topCardDisplay.Setup(topCard);
+    }
+
     public List<CardData> GetCardsForReshuffle()
     {
         if (dropPile.Count <= 1) return new List<CardData>();

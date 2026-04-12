@@ -5,7 +5,7 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
-    public Image backgroundSprite;
+    public Image backgroundImage;
     public TMP_Text topLeftText;
     public TMP_Text botRightText;
     public CardData cardData;
@@ -57,8 +57,16 @@ public class CardDisplay : MonoBehaviour
         botRightText.text = displayText;
         
         // Color to Update
-        backgroundSprite.color = TranslateColor(cardData.color);
+        backgroundImage.color = TranslateColor(cardData.color);
     }
+
+    /*    
+    public void UpdateOnlyColor(CardColor inColor)
+    {
+        Debug.Log("UpdateOnlyColor called!");
+        backgroundImage.color = TranslateColor(inColor);
+    }
+    */
     
     private Color TranslateColor(CardColor color)
     {

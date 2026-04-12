@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     
     public CardColor currentActiveColor;
     private bool isGameOver = false;
+    public bool isWaiting = false;
 
     [Header("End Game UI")]
     public GameObject victoryScreenPanel;
@@ -59,28 +60,37 @@ public class GameManager : MonoBehaviour
         TurnManager.Instance.InitializeMatch(allPlayerHands.Length);
     }
 
+    public void ForceDrawCard(int targetPlayerIndex)
+    {
+        if (isGameOver) return;
+        
+        CardData drawnCard = DrawPileManager.Instance.DrawCardFromPile();
+        if (drawnCard != null)
+        {
+            HandManager activeHand = GetHandByIndex(targetPlayerIndex);
+            if(activeHand != null)
+                activeHand.AddCardToHand(drawnCard);
+        }
+        else
+            Debug.Log("Drawn card is NULL!");
+    }
+
     public void TryDrawCard(int attempterPlayerIndex)
     {
         Debug.Log("Drawing card for player: " + attempterPlayerIndex);
+        
         if (isGameOver) return;
 
         if (attempterPlayerIndex != TurnManager.Instance.currentPlayerIndex) return;
 
-        // Get a card from the deck
-        CardData drawnCard = DrawPileManager.Instance.DrawCardFromPile();
-
-        // Give it to the active player
-        if (drawnCard != null)
+        if (EffectProcessor.Instance.pendingDraws > 0)
         {
-            HandManager activeHand = GetHandByIndex(attempterPlayerIndex);
-            if(activeHand != null)
-            {
-                Debug.Log("Active hand has get!");
-                activeHand.AddCardToHand(drawnCard);
-            }
+            EffectProcessor.Instance.ConsumePendingDraws(attempterPlayerIndex);
+            TurnManager.Instance.PassTurn();
+            return;
         }
-        else
-            Debug.Log("Drawn card is NULL!");
+
+        ForceDrawCard(attempterPlayerIndex);
     }
 
     public void TryPlayCard(CardData playedCardData, int attempterPlayerIndex)
@@ -96,18 +106,24 @@ public class GameManager : MonoBehaviour
         CardData topCardData = DropPileManager.Instance.GetTopCard();
         if (IsValidUnoPlay(playedCardData, topCardData))
         {
+            // Dropping card from hand
             HandManager activeHand = GetHandByIndex(attempterPlayerIndex);
             activeHand.RemoveCardFromHand(playedCardData);
-
             DropPileManager.Instance.AddCardToDropPile(playedCardData);
+
             currentActiveColor = playedCardData.color;
+            EffectProcessor.Instance.ProcessCardEffect(playedCardData);
+
             // SHOULD DIFFER WHEN A WILD CARD IS DROPPED
             if (activeHand.GetCardCount() == 0)
             {
+                Debug.Log("CONGRATS PLAYER " + TurnManager.Instance.currentPlayerIndex + " HAS WON!!!");
                 DeclareWinner(attempterPlayerIndex);
                 return; // Stop here so the turn doesn't pass
             }
-            TurnManager.Instance.PassTurn();
+            
+            if (!isWaiting)
+                TurnManager.Instance.PassTurn();
         }
     }
 
@@ -137,6 +153,21 @@ public class GameManager : MonoBehaviour
     
     private bool IsValidUnoPlay(CardData playedCardData, CardData topCardData)
     {
+        // Rules if there are pending draws
+        if (EffectProcessor.Instance.pendingDraws > 0)
+        {
+            if (playedCardData.type == CardType.PlusTwo 
+                    && topCardData.type == CardType.PlusTwo) 
+                return true;
+
+            if (playedCardData.type == CardType.WildPlusFour)
+                return true;
+
+            return false;
+        }
+
+
+        // Normal Rules for Validation
         if(playedCardData.type == CardType.WildColorChange
                 || playedCardData.type == CardType.WildPlusFour) return true;
 
@@ -175,7 +206,7 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver) return;
 
-        Debug.Log($"--- Player {playerIndex}'s Turn Started ---");
+        //Debug.Log($"--- Player {playerIndex}'s Turn Started ---");
         highlightIndexHand(playerIndex);
         // If it's an AI's turn (index > 0), you would trigger their logic here.
         // Example: if (playerIndex > 0) GetComponent<AIManager>().TakeTurn(playerIndex);

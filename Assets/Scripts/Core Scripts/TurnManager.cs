@@ -48,7 +48,7 @@ public class TurnManager : MonoBehaviour
 
         currentPlayerIndex = GetNextIndex();
 
-        Debug.Log($"Turn passed to Player {currentPlayerIndex}");
+        //Debug.Log($"Turn passed to Player {currentPlayerIndex}");
         OnTurnStarted?.Invoke(currentPlayerIndex);
     }
 
@@ -66,4 +66,20 @@ public class TurnManager : MonoBehaviour
 
     public void SetPlayerIndex(int index)
     { currentPlayerIndex = index % totalPlayers; }
+
+    // ==========================================
+    // EFFECT PROCESSOR HELPERS
+    // ==========================================
+
+    public void ReverseDirection()
+    {
+        playDirectionClockwise = !playDirectionClockwise;
+        //Debug.Log("Play direction reversed");
+    }
+
+    public void SkipNextPlayer()
+    {
+        currentPlayerIndex = GetNextIndex();
+        //Debug.Log($"Player skipped!");
+    }
 }
