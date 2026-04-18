@@ -51,9 +51,11 @@ public class AIHandController : MonoBehaviour
         // Debugging
         scores = new int[handCards.Count];
         int i = 0;
+
+        yield return new WaitForSeconds(thinkDelay/2.0f);
         foreach (CardData card in handCards)
         {
-            if( GameManager.Instance.IsValidUnoPlay(card,topCard))
+            if( GameManager.Instance.IsValidPlay(card,topCard))
             {
                 int score = CalculateCardScore(card);
                 if (score > bestScore)
@@ -68,8 +70,7 @@ public class AIHandController : MonoBehaviour
             i++;
         }
 
-        // Simulating "thinking" time
-        yield return new WaitForSeconds(thinkDelay);
+        yield return new WaitForSeconds(thinkDelay/2.0f);
 
         if (bestCard != null && bestScore > 0)
         {

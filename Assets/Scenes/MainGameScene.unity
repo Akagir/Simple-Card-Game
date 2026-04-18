@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIHandController
   aiPlayerIndex: 1
-  thinkDelay: 6
+  thinkDelay: 4
   mostFreqColor: 0
   scores: 
 --- !u!1 &808468548
@@ -1666,7 +1666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIHandController
   aiPlayerIndex: 2
-  thinkDelay: 6
+  thinkDelay: 4
   mostFreqColor: 0
   scores: 
 --- !u!1 &1395913751
@@ -2349,7 +2349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIHandController
   aiPlayerIndex: 3
-  thinkDelay: 6
+  thinkDelay: 4
   mostFreqColor: 0
   scores: 
 --- !u!1660057539 &9223372036854775807

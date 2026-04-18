@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         }
 
         CardData topCardData = DropPileManager.Instance.GetTopCard();
-        if (IsValidUnoPlay(playedCardData, topCardData))
+        if (IsValidPlay(playedCardData, topCardData))
         {
             // Dropping card from hand
             HandManager activeHand = GetHandByIndex(attempterPlayerIndex);
@@ -125,6 +125,8 @@ public class GameManager : MonoBehaviour
             if (!isWaiting)
                 TurnManager.Instance.PassTurn();
         }
+        else
+            Debug.LogWarning("Invalid card!");
     }
 
     // ==========================================
@@ -151,30 +153,36 @@ public class GameManager : MonoBehaviour
         return -1;
     }
     
-    public bool IsValidUnoPlay(CardData playedCardData, CardData topCardData)
+    public bool IsValidPlay(CardData playedCardData, CardData topCardData)
     {
         // Rules if there are pending draws
         if (EffectProcessor.Instance.pendingDraws > 0)
         {
-            if (playedCardData.type == CardType.PlusTwo 
+            if(topCardData.type == CardType.PlusTwo)
+            {
+                if (playedCardData.type == CardType.PlusTwo
+                        || playedCardData.type == CardType.WildPlusFour)
+                        return true;
+            }
+            else if(topCardData.type == CardType.WildPlusFour)
+            {
+                if (playedCardData.type == CardType.WildPlusFour)
+                return true;
+                
+                if (playedCardData.type == CardType.PlusTwo 
                     && playedCardData.color == currentActiveColor) 
                 return true;
-
-            if (playedCardData.type == CardType.WildPlusFour)
-                return true;
-
-            return false;
+            }
+            else
+                return false;
         }
         // Normal Rules for Validation
-        if(playedCardData.type == CardType.WildColorChange
+        else if(playedCardData.type == CardType.WildColorChange
                 || playedCardData.type == CardType.WildPlusFour) return true;
-
-        if(playedCardData.color == currentActiveColor) return true;
-
-        if(playedCardData.type != CardType.Number 
+        else if(playedCardData.color == currentActiveColor) return true;
+        else if(playedCardData.type != CardType.Number 
                 && playedCardData.type == topCardData.type) return true;
-
-        if(playedCardData.type == CardType.Number
+        else if(playedCardData.type == CardType.Number
                 && playedCardData.number == topCardData.number) return true;
 
         return false;
