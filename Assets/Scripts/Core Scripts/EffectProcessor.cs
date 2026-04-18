@@ -52,7 +52,9 @@ public class EffectProcessor : MonoBehaviour
         if (colorSelectionPanel != null)
         {
             GameManager.Instance.isWaiting = true;
-            colorSelectionPanel.SetActive(true);
+            // HARDCODED FOR PLAYER
+            if(TurnManager.Instance.currentPlayerIndex == 0) 
+                colorSelectionPanel.SetActive(true);
         }
         else
             Debug.LogWarning("Color Selection Panel isn't assigned!");

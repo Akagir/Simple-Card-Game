@@ -88,6 +88,11 @@ public class HandManager : MonoBehaviour
         return cardsInHand.Count;
     }
 
+    public List<CardData> GetCardsInHand()
+    {
+        return cardsInHand;
+    }
+
     public void activateHighlight()
     {
         handHighlighter.SetActive(true);

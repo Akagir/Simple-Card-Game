@@ -29,7 +29,7 @@ IPointerEnterHandler,IPointerExitHandler,IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Drawing card tried!!!");
+        //Debug.Log("Drawing card tried!!!");
         if (GameManager.Instance == null)
             Debug.LogError("GameManager Instance is missing from the scene!");
 

@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void TryDrawCard(int attempterPlayerIndex)
     {
-        Debug.Log("Drawing card for player: " + attempterPlayerIndex);
+        //Debug.Log("Drawing card for player: " + attempterPlayerIndex);
         
         if (isGameOver) return;
 
@@ -151,13 +151,13 @@ public class GameManager : MonoBehaviour
         return -1;
     }
     
-    private bool IsValidUnoPlay(CardData playedCardData, CardData topCardData)
+    public bool IsValidUnoPlay(CardData playedCardData, CardData topCardData)
     {
         // Rules if there are pending draws
         if (EffectProcessor.Instance.pendingDraws > 0)
         {
             if (playedCardData.type == CardType.PlusTwo 
-                    && topCardData.type == CardType.PlusTwo) 
+                    && playedCardData.color == currentActiveColor) 
                 return true;
 
             if (playedCardData.type == CardType.WildPlusFour)
@@ -165,8 +165,6 @@ public class GameManager : MonoBehaviour
 
             return false;
         }
-
-
         // Normal Rules for Validation
         if(playedCardData.type == CardType.WildColorChange
                 || playedCardData.type == CardType.WildPlusFour) return true;

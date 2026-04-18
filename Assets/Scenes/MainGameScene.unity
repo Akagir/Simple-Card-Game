@@ -1057,6 +1057,7 @@ GameObject:
   - component: {fileID: 660922852}
   - component: {fileID: 660922851}
   - component: {fileID: 660922854}
+  - component: {fileID: 660922855}
   m_Layer: 0
   m_Name: Opponent0Hand
   m_TagString: Untagged
@@ -1166,6 +1167,22 @@ MonoBehaviour:
   cardSpacing: 80
   cardPrefab: {fileID: 8903226296824229873, guid: 631735cadd33a357c8564bdf7238189a, type: 3}
   handHighlighter: {fileID: 1026586688}
+--- !u!114 &660922855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660922849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873390e5261451f479adf67a02857518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIHandController
+  aiPlayerIndex: 1
+  thinkDelay: 6
+  mostFreqColor: 0
+  scores: 
 --- !u!1 &808468548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1543,7 @@ GameObject:
   - component: {fileID: 1034901031}
   - component: {fileID: 1034901030}
   - component: {fileID: 1034901033}
+  - component: {fileID: 1034901034}
   m_Layer: 0
   m_Name: Opponent1Hand
   m_TagString: Untagged
@@ -1635,6 +1653,22 @@ MonoBehaviour:
   cardSpacing: 100
   cardPrefab: {fileID: 8903226296824229873, guid: 631735cadd33a357c8564bdf7238189a, type: 3}
   handHighlighter: {fileID: 942349095}
+--- !u!114 &1034901034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034901028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873390e5261451f479adf67a02857518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIHandController
+  aiPlayerIndex: 2
+  thinkDelay: 6
+  mostFreqColor: 0
+  scores: 
 --- !u!1 &1395913751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2192,6 +2226,7 @@ GameObject:
   - component: {fileID: 2138221264}
   - component: {fileID: 2138221263}
   - component: {fileID: 2138221266}
+  - component: {fileID: 2138221267}
   m_Layer: 0
   m_Name: Opponent2Hand
   m_TagString: Untagged
@@ -2301,6 +2336,22 @@ MonoBehaviour:
   cardSpacing: 80
   cardPrefab: {fileID: 8903226296824229873, guid: 631735cadd33a357c8564bdf7238189a, type: 3}
   handHighlighter: {fileID: 15687003}
+--- !u!114 &2138221267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138221261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873390e5261451f479adf67a02857518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIHandController
+  aiPlayerIndex: 3
+  thinkDelay: 6
+  mostFreqColor: 0
+  scores: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
