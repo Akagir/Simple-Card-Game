@@ -74,7 +74,7 @@ public class AIHandController : MonoBehaviour
 
         if (bestCard != null && bestScore > 0)
         {
-            Debug.Log($"AI {aiPlayerIndex} playing card with score {bestScore}");
+            //Debug.Log($"AI {aiPlayerIndex} playing card with score {bestScore}");
             GameManager.Instance.TryPlayCard(bestCard, aiPlayerIndex);
             
             // If the card was a Wild, the AI needs to pick a color
@@ -87,7 +87,7 @@ public class AIHandController : MonoBehaviour
         else
         {
             // bestScore was 0, meaning absolutely no cards are valid. Force a draw.
-            Debug.Log($"AI {aiPlayerIndex} found no valid moves. Drawing card.");
+            //Debug.Log($"AI {aiPlayerIndex} found no valid moves. Drawing card.");
             if (EffectProcessor.Instance.pendingDraws == 0)
             {
                 yield return new WaitForSeconds(thinkDelay/3.0f);

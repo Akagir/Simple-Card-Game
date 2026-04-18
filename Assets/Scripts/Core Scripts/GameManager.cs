@@ -167,14 +167,11 @@ public class GameManager : MonoBehaviour
             else if(topCardData.type == CardType.WildPlusFour)
             {
                 if (playedCardData.type == CardType.WildPlusFour)
-                return true;
-                
-                if (playedCardData.type == CardType.PlusTwo 
+                    return true;
+                else if (playedCardData.type == CardType.PlusTwo 
                     && playedCardData.color == currentActiveColor) 
-                return true;
+                    return true;
             }
-            else
-                return false;
         }
         // Normal Rules for Validation
         else if(playedCardData.type == CardType.WildColorChange
@@ -197,9 +194,9 @@ public class GameManager : MonoBehaviour
             victoryScreenPanel.SetActive(true);
             
             if (winningPlayerIndex == 0) {
-                victoryWinnerText.text = "You Win!";
+                victoryWinnerText.text = "You Won the Game!";
             } else {
-                victoryWinnerText.text = $"AI {winningPlayerIndex} Wins!";
+                victoryWinnerText.text = $"Player {winningPlayerIndex} Won the Game!";
             }
         }
     }

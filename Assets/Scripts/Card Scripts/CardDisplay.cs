@@ -5,6 +5,7 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
+    public GameObject cardBackSide;
     public Image backgroundImage;
     public TMP_Text topLeftText;
     public TMP_Text botRightText;
@@ -23,6 +24,12 @@ public class CardDisplay : MonoBehaviour
     {
         cardData = inData;
         UpdateCardVisual();
+    }
+
+    public void SetFaceUp(bool isFaceUp)
+    {
+        if(cardBackSide != null)
+            cardBackSide.SetActive(!isFaceUp);
     }
 
     public void UpdateCardVisual()
@@ -59,14 +66,6 @@ public class CardDisplay : MonoBehaviour
         // Color to Update
         backgroundImage.color = TranslateColor(cardData.color);
     }
-
-    /*    
-    public void UpdateOnlyColor(CardColor inColor)
-    {
-        Debug.Log("UpdateOnlyColor called!");
-        backgroundImage.color = TranslateColor(inColor);
-    }
-    */
     
     private Color TranslateColor(CardColor color)
     {

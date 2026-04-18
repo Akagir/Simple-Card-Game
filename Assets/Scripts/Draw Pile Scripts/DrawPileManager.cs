@@ -18,14 +18,20 @@ public class DrawPileManager : MonoBehaviour
         Debug.Log("Draw Pile initialize with " + drawPile.Count + " cards!");
     }
 
-    void Start()
-    {
-        
-    }
-
     public CardData DrawCardFromPile()
     {
-        if(drawPile.Count <= 1) return null;
+        if(drawPile.Count <= 1)
+        {
+            List<CardData> discardedCards = DropPileManager.Instance.GetCardsForReshuffle();
+
+            if (discardedCards == null || discardedCards.Count == 0)
+            {
+                Debug.LogWarning("No cards available in Drop Pile to reshuffle!");
+                return null;
+            }
+            drawPile.AddRange(discardedCards);
+            ShuffleDrawPile();
+        }
 
         CardData drawnCard;
         int topCardIndex = drawPile.Count-1;

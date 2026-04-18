@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using AkagirSCG;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class HandManager : MonoBehaviour
 {
     [SerializeField]
@@ -12,13 +14,23 @@ public class HandManager : MonoBehaviour
     public float verticalOffset = -18;
     public float cardSpacing = 100f;
     public GameObject cardPrefab;
+    public bool isFaceDownHand = false;
+
 
     // For highlighing hand in turn
     public GameObject handHighlighter;
+    private CanvasGroup canvasGroup;
 
     private void Awake()
     {
-        handTransform = this.transform; 
+        handTransform = this.transform;
+
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            canvasGroup.interactable = !isFaceDownHand;
+            canvasGroup.blocksRaycasts = !isFaceDownHand;
+        }
     }
 
     public void AddCardToHand(CardData inData)
@@ -61,7 +73,7 @@ public class HandManager : MonoBehaviour
                                         handTransform);
 
             newCard.GetComponent<CardDisplay>().Setup(cardsInHand[i]);
-
+            newCard.GetComponent<CardDisplay>().SetFaceUp(!isFaceDownHand);
             cardObjects.Add(newCard);
         }
         
