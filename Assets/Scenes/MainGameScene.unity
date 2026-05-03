@@ -263,6 +263,81 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EffectProcessor
   pendingDraws: 0
   colorSelectionPanel: {fileID: 1997467371}
+--- !u!1 &112197464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 112197465}
+  - component: {fileID: 112197467}
+  - component: {fileID: 112197466}
+  m_Layer: 0
+  m_Name: DrawPileFrontLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &112197465
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112197464}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 556367664}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 3.2, y: 4.65}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &112197466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112197464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7fc8cf8561ab68245a98ff5cd4120855, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &112197467
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112197464}
+  m_CullTransparentMesh: 1
 --- !u!1 &115120224
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6980392, g: 0.1333333, b: 0.1333333, a: 1}
+  m_Color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -735,6 +810,7 @@ RectTransform:
   m_Children:
   - {fileID: 640881737}
   - {fileID: 509303438}
+  - {fileID: 112197465}
   m_Father: {fileID: 312617377}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1165,7 +1241,7 @@ MonoBehaviour:
   cardsInHand: []
   horizontalOffset: 0
   verticalOffset: -10
-  cardSpacing: 80
+  cardSpacing: 60
   cardPrefab: {fileID: 8903226296824229873, guid: 631735cadd33a357c8564bdf7238189a, type: 3}
   isFaceDownHand: 1
   handHighlighter: {fileID: 1026586688}
@@ -1182,7 +1258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIHandController
   aiPlayerIndex: 1
-  thinkDelay: 4
+  thinkDelay: 3
   mostFreqColor: 0
   scores: 
 --- !u!225 &660922856
@@ -1679,7 +1755,7 @@ MonoBehaviour:
   cardsInHand: []
   horizontalOffset: 0
   verticalOffset: -24
-  cardSpacing: 100
+  cardSpacing: 80
   cardPrefab: {fileID: 8903226296824229873, guid: 631735cadd33a357c8564bdf7238189a, type: 3}
   isFaceDownHand: 1
   handHighlighter: {fileID: 942349095}
@@ -1696,7 +1772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIHandController
   aiPlayerIndex: 2
-  thinkDelay: 4
+  thinkDelay: 3
   mostFreqColor: 0
   scores: 
 --- !u!225 &1034901035
@@ -2180,13 +2256,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 312617377}
-  - {fileID: 1684435044}
-  - {fileID: 840947858}
   - {fileID: 660922850}
   - {fileID: 1034901029}
   - {fileID: 2138221262}
+  - {fileID: 1684435044}
+  - {fileID: 312617377}
   - {fileID: 1997467372}
+  - {fileID: 840947858}
   m_Father: {fileID: 1810429865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2477,7 +2553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 0.50980395}
+  m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 0.7058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2662,7 +2738,7 @@ MonoBehaviour:
   cardsInHand: []
   horizontalOffset: 0
   verticalOffset: -10
-  cardSpacing: 80
+  cardSpacing: 60
   cardPrefab: {fileID: 8903226296824229873, guid: 631735cadd33a357c8564bdf7238189a, type: 3}
   isFaceDownHand: 1
   handHighlighter: {fileID: 15687003}
@@ -2679,7 +2755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIHandController
   aiPlayerIndex: 3
-  thinkDelay: 4
+  thinkDelay: 3
   mostFreqColor: 0
   scores: 
 --- !u!225 &2138221268
@@ -2698,9 +2774,9 @@ CanvasGroup:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
-  - {fileID: 619394802}
-  - {fileID: 600284233}
-  - {fileID: 1810429865}
   - {fileID: 43935515}
   - {fileID: 115120226}
+  - {fileID: 600284233}
+  - {fileID: 1810429865}
+  - {fileID: 619394802}
+  - {fileID: 519420032}
