@@ -115,4 +115,23 @@ public class HandManager : MonoBehaviour
         handHighlighter.SetActive(false);
     }
 
+    public GameObject ExtractCardObject(CardData targetData)
+    {
+        GameObject extractObject = null;
+        foreach (Transform child in handTransform)
+        {
+            if(child.GetComponent<CardDisplay>() != null)
+            {
+                CardDisplay display = child.GetComponent<CardDisplay>();
+                if(display.cardData == targetData)
+                {
+                    display.SetFaceUp(true);
+                    child.SetParent(handTransform.parent);
+                    extractObject = child.gameObject;
+                }
+            }
+            
+        }
+        return extractObject;
+    }
 }

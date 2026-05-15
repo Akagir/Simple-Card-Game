@@ -808,6 +808,8 @@ MonoBehaviour:
     color: 0
     type: 0
     number: 1
+  duration: 0.42
+  peakScaleMult: 1.8
 --- !u!114 &7856022798763806609
 MonoBehaviour:
   m_ObjectHideFlags: 0

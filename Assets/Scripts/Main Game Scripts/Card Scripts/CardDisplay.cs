@@ -2,6 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using AkagirSCG;
 using TMPro;
+using System;
+using System.Collections;
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
+using Quaternion = UnityEngine.Quaternion;
 
 public class CardDisplay : MonoBehaviour
 {
@@ -10,6 +15,9 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text topLeftText;
     public TMP_Text botRightText;
     public CardData cardData;
+
+    public float duration = 0.45f;
+    public float peakScaleMult = 1.8f;
 
     void Update()
     {
@@ -78,4 +86,42 @@ public class CardDisplay : MonoBehaviour
             _ => Color.gray3
         };
     }
+
+    public void ActivateDropAnimation(
+        Transform targetTransform, Action onComplete)
+    {
+        StartCoroutine(
+            AnimateDropRoutine(targetTransform, onComplete));
+    }
+
+    private IEnumerator AnimateDropRoutine(Transform targetTransform, Action onComplete)
+    {
+        Vector3 startPos = transform.position;
+        Quaternion startRot = transform.rotation;
+        Vector3 startScale = transform.localScale;
+
+        Vector3 endPos = targetTransform.position;
+        Quaternion endRot = targetTransform.rotation;
+        Vector3 peakScale = startScale * peakScaleMult;
+
+        float elapsed = 0f;        
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            t = t*t * (3f - (2f*t));
+            
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            transform.rotation = Quaternion.Lerp(startRot, endRot, t);
+            
+            if(elapsed < (duration/2f))
+                transform.localScale = Vector3.Lerp(startScale, peakScale, t);
+            else
+                transform.localScale = Vector3.Lerp(peakScale, startScale, t);
+            
+            yield return null;
+        }
+        //UnityEngine.Debug.Log("Drop animation is done!");
+        onComplete?.Invoke();
+    }    
 }

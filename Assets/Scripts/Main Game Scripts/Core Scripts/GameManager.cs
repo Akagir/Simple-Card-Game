@@ -1,7 +1,6 @@
 using UnityEngine;
 using AkagirSCG;
 using TMPro;
-using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -108,6 +107,15 @@ public class GameManager : MonoBehaviour
         {
             // Dropping card from hand
             HandManager activeHand = GetHandByIndex(attempterPlayerIndex);
+            // Dropping card animated 
+            GameObject animatedCard = activeHand.ExtractCardObject(playedCardData);
+            CardDisplay display = animatedCard.GetComponent<CardDisplay>();
+            if(animatedCard != null)
+            {
+                Transform dropTransform = DropPileManager.Instance.topCardDisplay.transform;
+                display.ActivateDropAnimation(dropTransform, () => Destroy(animatedCard));
+            }
+
             activeHand.RemoveCardFromHand(playedCardData);
             DropPileManager.Instance.AddCardToDropPile(playedCardData);
 
