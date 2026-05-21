@@ -4,7 +4,6 @@ using AkagirSCG;
 using TMPro;
 using System;
 using System.Collections;
-using System.Numerics;
 using Vector3 = UnityEngine.Vector3;
 using Quaternion = UnityEngine.Quaternion;
 
@@ -15,9 +14,10 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text topLeftText;
     public TMP_Text botRightText;
     public CardData cardData;
-
-    public float duration = 0.45f;
+    public float dropDuration = 0.45f;
     public float peakScaleMult = 1.8f;
+
+    public float drawDuration = 0.35f;
 
     void Update()
     {
@@ -87,11 +87,15 @@ public class CardDisplay : MonoBehaviour
         };
     }
 
-    public void ActivateDropAnimation(
-        Transform targetTransform, Action onComplete)
+    public void ActivateDropAnimation(Transform targetTransform, Action onComplete)
     {
         StartCoroutine(
             AnimateDropRoutine(targetTransform, onComplete));
+    }
+
+    public void ActivateDrawAnimation(Transform targetTransform, Action onComplete)
+    {
+        StartCoroutine(AnimateDrawRoutine(targetTransform,onComplete));
     }
 
     private IEnumerator AnimateDropRoutine(Transform targetTransform, Action onComplete)
@@ -105,16 +109,16 @@ public class CardDisplay : MonoBehaviour
         Vector3 peakScale = startScale * peakScaleMult;
 
         float elapsed = 0f;        
-        while (elapsed < duration)
+        while (elapsed < dropDuration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / duration;
+            float t = elapsed / dropDuration;
             t = t*t * (3f - (2f*t));
             
             transform.position = Vector3.Lerp(startPos, endPos, t);
             transform.rotation = Quaternion.Lerp(startRot, endRot, t);
             
-            if(elapsed < (duration/2f))
+            if(elapsed < (dropDuration/2f))
                 transform.localScale = Vector3.Lerp(startScale, peakScale, t);
             else
                 transform.localScale = Vector3.Lerp(peakScale, startScale, t);
@@ -123,5 +127,27 @@ public class CardDisplay : MonoBehaviour
         }
         //UnityEngine.Debug.Log("Drop animation is done!");
         onComplete?.Invoke();
-    }    
+    }
+
+    private IEnumerator AnimateDrawRoutine(Transform targetTransform, Action onComplete)
+    {
+        Vector3 startPos = targetTransform.position;
+        Quaternion startRot = targetTransform.rotation;
+
+        Vector3 endPos = transform.position;
+        Quaternion endRot = transform.rotation;
+
+        float elapsed = 0f;        
+        while (elapsed < drawDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / drawDuration;
+            t = t*t * (3f - (2f*t));
+
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            transform.rotation = Quaternion.Lerp(startRot, endRot, t);
+            yield return null;
+        }
+        onComplete?.Invoke();
+    }
 }

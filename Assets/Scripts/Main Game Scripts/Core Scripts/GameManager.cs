@@ -45,13 +45,17 @@ public class GameManager : MonoBehaviour
             {
                 CardData drawnCard = DrawPileManager.Instance.DrawCardFromPile();
                 if (drawnCard != null) {
-                    hand.AddCardToHand(drawnCard);
+                    hand.AddCardToHand(drawnCard,DrawPileManager.Instance.transform,()=>{});
                 }
             }
         }
 
         // Flip the first card onto the discard pile
         CardData firstDrop = DrawPileManager.Instance.DrawCardFromPile();
+        if(firstDrop.type == CardType.WildPlusFour 
+            || firstDrop.type == CardType.WildColorChange)
+            firstDrop = DrawPileManager.Instance.DrawCardFromPile();
+            
         DropPileManager.Instance.InitializeFirstDroppedCard(firstDrop);
         currentActiveColor = firstDrop.color;
 
@@ -68,7 +72,8 @@ public class GameManager : MonoBehaviour
         {
             HandManager activeHand = GetHandByIndex(targetPlayerIndex);
             if(activeHand != null)
-                activeHand.AddCardToHand(drawnCard);
+                activeHand.AddCardToHand(drawnCard,
+                DrawPileManager.Instance.transform,()=>{});
         }
         else
             Debug.Log("Drawn card is NULL!");

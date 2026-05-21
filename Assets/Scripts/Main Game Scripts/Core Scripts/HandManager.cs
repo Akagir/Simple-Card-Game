@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
 using AkagirSCG;
 
@@ -33,15 +33,31 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    public void AddCardToHand(CardData inData)
+    public void AddCardToHand(CardData inData,Transform originTransform,Action onComplete)
     {
         if(inData == null)
-        {
             Debug.Log("Add Card is null!!!");
-            return;
-        }
+
         cardsInHand.Add(inData);
         UpdateHandVisual();
+        
+        if (originTransform != null && handTransform.childCount > 0)
+        {
+            Transform newCardObj = handTransform.GetChild(handTransform.childCount - 1);
+            CardDisplay newCardDisplay = newCardObj.GetComponent<CardDisplay>();
+
+            if (newCardDisplay != null)
+            {
+                newCardDisplay.SetFaceUp(false);
+                newCardDisplay.ActivateDrawAnimation(originTransform, () =>
+                {
+                    if (!isFaceDownHand)
+                        newCardDisplay.SetFaceUp(true);
+                    onComplete?.Invoke();
+                });
+            }
+        }
+        onComplete?.Invoke();        
     }
 
     public void RemoveCardFromHand(CardData inData)
