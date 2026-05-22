@@ -79,10 +79,10 @@ public class CardDisplay : MonoBehaviour
     {
         return color switch
         {
-            CardColor.Red => Color.red,
-            CardColor.Yellow => Color.yellow,
-            CardColor.Green => Color.green,
-            CardColor.Blue => Color.blue,
+            CardColor.Red => new Color(0.62f,0,0),
+            CardColor.Yellow => new Color(0.78f,0.76f,0),
+            CardColor.Green => new Color(0,0.62f,0),
+            CardColor.Blue => new Color(0,0,0.62f),
             _ => Color.gray3
         };
     }
