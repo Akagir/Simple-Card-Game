@@ -90,7 +90,6 @@ public class AIHandController : MonoBehaviour
             //Debug.Log($"AI {aiPlayerIndex} found no valid moves. Drawing card.");
             if (EffectProcessor.Instance.pendingDraws == 0)
             {
-                yield return new WaitForSeconds(thinkDelay/3.0f);
                 GameManager.Instance.TryDrawCard(aiPlayerIndex);
                 yield return StartCoroutine(PlayTurnRoutine());
             }

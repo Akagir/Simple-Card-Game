@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
         DropPileManager.Instance.InitializeFirstDroppedCard(firstDrop);
         currentActiveColor = firstDrop.color;
 
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.shuffleDeck);
+
         // 3. Tell the TurnManager to begin!
         TurnManager.Instance.InitializeMatch(allPlayerHands.Length);
     }
@@ -77,6 +79,8 @@ public class GameManager : MonoBehaviour
         }
         else
             Debug.Log("Drawn card is NULL!");
+
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.drawCard);
     }
 
     public void TryDrawCard(int attempterPlayerIndex)
@@ -126,6 +130,8 @@ public class GameManager : MonoBehaviour
 
             currentActiveColor = playedCardData.color;
             EffectProcessor.Instance.ProcessCardEffect(playedCardData);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.dropCard);
 
             // SHOULD DIFFER WHEN A WILD CARD IS DROPPED
             if (activeHand.GetCardCount() == 0)
@@ -212,6 +218,7 @@ public class GameManager : MonoBehaviour
                 victoryWinnerText.text = $"Player {winningPlayerIndex} Won the Game!";
             }
         }
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.applause);
     }
 
     // ==========================================

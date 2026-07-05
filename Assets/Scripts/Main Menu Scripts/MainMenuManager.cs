@@ -7,26 +7,29 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
-        CloseSettingsMenu();
     }
 
     public void StartMainGame()
     {
-        SceneManager.LoadSceneAsync("MainGameScene");
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
+        SceneManager.LoadSceneAsync("MainGameScene");        
     }
 
     public void OpenSettingsMenu()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         SettingsMenu.SetActive(true);
     }
 
     public void CloseSettingsMenu()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         SettingsMenu.SetActive(false);
     }
 
     public void QuitGame()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         Application.Quit();
     }
 }
