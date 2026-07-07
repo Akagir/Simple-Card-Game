@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public AudioMixer mainMixer;
+
     public static AudioManager Instance;
 
     [Header("Audio Sources")]
@@ -22,6 +25,21 @@ public class AudioManager : MonoBehaviour
             Instance = this;
         else if (Instance != this)
             Destroy(gameObject);
+    }
+
+    public void SetMasterVolume(float inVolume)
+    {
+        mainMixer.SetFloat("MasterVolume",inVolume);
+    }
+
+    public void SetMusicVolume(float inVolume)
+    {
+        mainMixer.SetFloat("MusicVolume", inVolume);
+    }
+
+    public void SetSFXVolume(float inVolume)
+    {
+        mainMixer.SetFloat("SFXVolume", inVolume);
     }
 
     private void Start()

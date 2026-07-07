@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public GameObject SettingsMenu;
+    public GameObject SettingsPanel;
 
     void Start()
     {
@@ -15,16 +15,16 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadSceneAsync("MainGameScene");        
     }
 
-    public void OpenSettingsMenu()
+    public void OpenSettingsPanel()
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
-        SettingsMenu.SetActive(true);
+        SettingsPanel.SetActive(true);
     }
 
-    public void CloseSettingsMenu()
+    public void CloseSettingsPanel()
     {
         AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
-        SettingsMenu.SetActive(false);
+        SettingsPanel.SetActive(false);
     }
 
     public void QuitGame()
